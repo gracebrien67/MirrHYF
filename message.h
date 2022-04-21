@@ -42,7 +42,6 @@ const upb_Message* Message_Get(VALUE value, const upb_MessageDef** m);
 
 // Like Message_Get(), but checks that the object is not frozen and returns a
 // mutable pointer.
-upb_Message* Message_GetMutable(VALUE value, const upb_MessageDef** m);
 
 // Returns the Arena object for this message.
 VALUE Message_GetArena(VALUE value);
@@ -56,8 +55,6 @@ VALUE Message_GetArena(VALUE value);
 // Google::Protobuf::Timestamp). If any new message is created, it will be
 // created on |arena|, and any existing message will have its arena fused with
 // |arena|.
-const upb_Message* Message_GetUpbMessage(VALUE value, const upb_MessageDef* m,
-                                         const char* name, upb_Arena* arena);
 
 // Gets or constructs a Ruby wrapper object for the given message. The wrapper
 // object will reference |arena| and ensure that it outlives this object.
@@ -86,10 +83,6 @@ bool Message_Equal(const upb_Message* m1, const upb_Message* m2,
 // Checks that this Ruby object is a message, and raises an exception if not.
 void Message_CheckClass(VALUE klass);
 
-// Returns a new Hash object containing the contents of this message.
-VALUE Scalar_CreateHash(upb_MessageValue val, TypeInfo type_info);
-
-// Creates a message class or enum module for this descriptor, respectively.
 VALUE build_class_from_descriptor(VALUE descriptor);
 VALUE build_module_from_enumdesc(VALUE _enumdesc);
 
